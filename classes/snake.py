@@ -5,15 +5,14 @@ from .direction import Direction
 from .fruit import Fruit
 from .postion import Position
 from .segment import Segment
-import pygame
 
 
 class Snake:
-    def __init__(self, position: Position, velocity: int = 30, color: Color = Color.BLUE):
+    def __init__(self, position: Position, speed: int = 30, color: Color = Color.BLUE):
         self.direction = Direction.STOP
-        self.velocity = velocity
+        self.speed = speed
         self.color = color
-        self.segments = [Segment(position, self.color)]
+        self.segments = [Segment(position, self.color, True)]
 
     def change_direction(self, direction: Direction):
         if not self.direction.is_opposite_or_same_to(direction):
@@ -23,7 +22,7 @@ class Snake:
         pass
 
     def eat(self, fruit: Fruit):
-        pass
+        self.segments.append(Segment.from_segment(self.segments[-1]))
 
     def have_bitten_itself(self) -> bool:
         pass
